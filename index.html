@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WebView Sample</title>
+</head>
+<body>
+  <h2>WebView 통신 테스트</h2>
+  <button onclick="logMessage()">Log 메시지 전송</button>
+
+  <script>
+    function logMessage() {
+      const message = "JS 콘솔 메시지 전송!";
+      window.flutter_inappwebview.callHandler('consoleLog', message);
+      console.log(message);
+    }
+  </script>
+</body>
+</html>
