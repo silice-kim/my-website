@@ -17,15 +17,28 @@
     .container {
       max-width: 480px;
     }
+    #location-result {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
   </style>
 </head>
 <body>
   <div class="container text-center">
     <h2 class="mb-4">WebView 통신 테스트</h2>
-    <button class="btn btn-primary btn-lg" onclick="logMessage()">Log 메시지 전송</button>
+
+    <!-- ✅ 로그 메시지 전송 버튼 -->
+    <button class="btn btn-primary btn-lg mb-3" onclick="logMessage()">Log 메시지 전송</button>
+
+    <!-- ✅ 위치 요청 버튼 -->
+    <button class="btn btn-success btn-lg mb-3" onclick="getLocationFromFlutter()">📍 위치 요청</button>
+
+    <!-- ✅ 위치 결과 표시 -->
+    <div id="location-result">위치 정보가 여기에 표시됩니다.</div>
   </div>
 
-  <!-- ✅ Bootstrap JS (optional, for components like modals/dropdowns) -->
+  <!-- ✅ Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -35,6 +48,24 @@
         window.flutter_inappwebview.callHandler('consoleLog', message);
       }
       console.log(message);
+    }
+
+    async function getLocationFromFlutter() {
+      const resultEl = document.getElementById("location-result");
+      resultEl.innerText = "Flutter에 위치 요청 중...";
+
+      try {
+        const result = await window.flutter_inappwebview.callHandler('getLocation');
+        if (result && result.latitude && result.longitude) {
+          resultEl.innerText = `📌 위도: ${result.latitude}, 경도: ${result.longitude}`;
+        } else if (result?.error) {
+          resultEl.innerText = "❌ 오류: " + result.error;
+        } else {
+          resultEl.innerText = "⚠️ 위치 정보를 가져올 수 없습니다.";
+        }
+      } catch (e) {
+        resultEl.innerText = "에러 발생: " + e;
+      }
     }
   </script>
 </body>
