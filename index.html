@@ -52,6 +52,14 @@
     <a href="bright_page.html" class="btn btn-danger btn-lg">🌞 자동밝기 이동</a>
   </div>
 
+
+  <!-- ✅ 자동밝기 페이지로 이동하는 버튼 -->
+  <div class="d-grid gap-2 mt-4">
+    <button class="btn btn-primary btn-lg mb-3" onclick="openExternal()">외부 브라우저로 열기</button>
+  </div>
+
+
+
   <!-- ✅ Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -79,6 +87,13 @@
         }
       } catch (e) {
         resultEl.innerText = "에러 발생: " + e;
+      }
+    }
+
+    // 외부 브라우져 열기
+    function openExternal() {
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('openExternal', 'https://naver.com');
       }
     }
   </script>
