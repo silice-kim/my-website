@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>밝기 조절 페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // ✅ Flutter로 메시지 전송
+    function sendMessageToFlutter(message) {
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('brightnessControl', message);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      sendMessageToFlutter("increase");  // 진입 시 밝기 증가
+    });
+
+    window.addEventListener("beforeunload", () => {
+      sendMessageToFlutter("restore");  // 벗어날 때 원래 밝기 복원
+    });
+  </script>
+  <style>
+    body {
+      background-color: #fff;
+      color: #000;
+      font-size: 1.4rem;
+      text-align: center;
+      padding-top: 80px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌞 밝기 조절 페이지</h2>
+  <p>이 페이지에 들어오면 화면이 밝아지고, 벗어나면 원래대로 돌아갑니다.</p>
+</body>
+</html>
