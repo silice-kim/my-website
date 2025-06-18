@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>화면 꺼짐 방지 테스트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+
+  <script>
+    // ✅ Flutter로 메시지 전송
+    function keepScreenOn() {
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('screenControl', 'keepScreenOn');
+      }
+    }
+
+    function releaseScreen() {
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('screenControl', 'releaseScreen');
+      }
+    }
+
+    // ✅ 페이지 진입 시 자동으로 화면 꺼짐 방지
+    window.addEventListener("DOMContentLoaded", () => {
+      keepScreenOn();
+    });
+
+    // ✅ 페이지 벗어날 때 화면 꺼짐 방지 해제
+    window.addEventListener("beforeunload", () => {
+      releaseScreen();
+    });
+  </script>
+</head>
+
+<body>
+  <h1>✅ 화면 꺼짐 방지 페이지</h1>
+  <p>이 페이지에 있는 동안 화면이 꺼지지 않습니다.</p>
+
+  <button onclick="releaseScreen()">수동으로 화면 꺼짐 방지 해제</button>
+        <a href="index.html" class="btn btn-secondary mt-4">← 돌아가기</a>
+</body>
+</html>
