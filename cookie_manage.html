@@ -24,11 +24,16 @@
     <a href="index.html" class="btn btn-secondary btn-lg mt-4">← 돌아가기</a>
   </div>
 
-  <script>
-    async function setCookieFromFlutter() {
-      const result = await window.flutter_inappwebview?.callHandler("setCookie");
-      document.getElementById("output").innerText = "✅ 쿠키 설정 완료: " + result?.message;
-    }
+  <script>    
+	async function setCookieFromFlutter() {
+		const name = prompt("쿠키 이름:", "sample_token");
+		const value = prompt("쿠키 값:", "flutter123");
+
+		if (name && value) {
+		  const result = await window.flutter_inappwebview?.callHandler("setCookie", name, value);		  
+		  document.getElementById("output").innerText = "✅ 쿠키 설정 완료: " + result?.message;
+		}
+	}
 
     async function showCookiesFromFlutter() {
       const result = await window.flutter_inappwebview?.callHandler("showCookies");
